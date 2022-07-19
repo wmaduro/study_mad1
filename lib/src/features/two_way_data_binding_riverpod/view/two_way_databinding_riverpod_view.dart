@@ -55,11 +55,11 @@ class TwoWayDataBindinRiverpodView extends ConsumerWidget {
             notifier,
           ),
         ),
-        ElevatedButton(
-            onPressed: () {
-              notifier.setCampo1(controllerCampo1.text);
-            },
-            child: const Text('campo1')),
+        // ElevatedButton(
+        //     onPressed: () {
+        //       notifier.setCampo1(controllerCampo1.text);
+        //     },
+        //     child: const Text('campo1')),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           child: _buildCampo2(
@@ -67,30 +67,34 @@ class TwoWayDataBindinRiverpodView extends ConsumerWidget {
             notifier,
           ),
         ),
-        ElevatedButton(
-            onPressed: () {
-              notifier.setCampo2(controllerCampo2.text);
-            },
-            child: const Text('campo2')),
+        // ElevatedButton(
+        //     onPressed: () {
+        //       notifier.setCampo2(controllerCampo2.text);
+        //     },
+        //     child: const Text('campo2')),
         Text('Campo1: $stateCampo1'),
         Text('Campo2: $stateCampo2'),
       ],
     );
   }
 
-  TextField _buildCampo1(TextEditingController controllerCampo1,
+  Widget _buildCampo1(TextEditingController controllerCampo1,
       TwoWayDataBindingRiverpodNotifier notifier) {
-    return TextField(
-      controller: controllerCampo1,
-      decoration: const InputDecoration(
-        border: OutlineInputBorder(),
-        hintText: 'Campo1',
-      ),
-      onChanged: (value) {
-        log('--- onChanged Campo1 $value ');
-        notifier.setCampo1(value);
-      },
-    );
+    return Focus(
+        onFocusChange: (hasFocus) {
+          log('--- >>>>> onFocusChange $hasFocus ');
+        },
+        child: TextField(
+          controller: controllerCampo1,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            hintText: 'Campo1',
+          ),
+          onChanged: (value) {
+            log('--- onChanged Campo1 $value ');
+            // notifier.setCampo1(value);
+          },
+        ));
   }
 
   TextField _buildCampo2(TextEditingController controllerCampo2,
