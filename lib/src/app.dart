@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:study_mad1/src/features/two_way_data_binding_riverpod/view/two_way_databinding_riverpod_view.dart';
 import 'package:study_mad1/src/features/two_way_data_binding_riverpod/view/two_way_databinding_riverpod_view2.dart';
 
+import 'features/two_way_data_binding_riverpod/services/data_generator_services.dart';
 import 'sample_feature/sample_item_details_view.dart';
 import 'sample_feature/sample_item_list_view.dart';
 import 'settings/settings_controller.dart';
@@ -27,6 +28,8 @@ class MyApp extends StatelessWidget {
     return AnimatedBuilder(
       animation: settingsController,
       builder: (BuildContext context, Widget? child) {
+        final dataGeneratorService = DataGeneratorService();
+
         return MaterialApp(
           // Providing a restorationScopeId allows the Navigator built by the
           // MaterialApp to restore the navigation stack when a user leaves and
@@ -64,6 +67,7 @@ class MyApp extends StatelessWidget {
 
           // Define a function to handle named routes in order to support
           // Flutter web url navigation and deep linking.
+
           onGenerateRoute: (RouteSettings routeSettings) {
             return MaterialPageRoute<void>(
               settings: routeSettings,
@@ -76,7 +80,7 @@ class MyApp extends StatelessWidget {
                   case SettingsView.routeName:
                   case TwoWayDataBindinRiverpodView.routeName:
                   default:
-                    return TwoWayDataBindinRiverpodView2();
+                    return TwoWayDataBindinRiverpodView2(dataGeneratorService);
                 }
               },
             );

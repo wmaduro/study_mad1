@@ -8,6 +8,8 @@ class TwoWayDataBindingRiverpodState with _$TwoWayDataBindingRiverpodState {
 
   const factory TwoWayDataBindingRiverpodState({
     @Default('1') String campo1,
-    @Default('2') String campo2,
+    @Default('') String campo2,
+    @Default('timerFromCompleter') String timerFromCompleter,
+    @Default('timerFromPeriodc') String timerFromPeriodc,
   }) = _TwoWayDataBindingRiverpodState;
 }

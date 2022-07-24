@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:study_mad1/src/features/two_way_data_binding_riverpod/controller/two_way_databinding_riverpod_controller.dart';
 import 'package:study_mad1/src/features/two_way_data_binding_riverpod/controller/two_way_databinding_riverpod_state.dart';
+import 'package:study_mad1/src/features/two_way_data_binding_riverpod/services/data_generator_services.dart';
 
 class TwoWayDataBindinRiverpodView2 extends StatelessWidget {
-  TwoWayDataBindinRiverpodView2({Key? key}) : super(key: key);
+  final DataGeneratorService dataGeneratorService;
+  TwoWayDataBindinRiverpodView2(
+    this.dataGeneratorService,
+  ) : super();
 
   static const routeName = '/TwoWayDataBindinRiverpod2';
 
@@ -14,12 +18,15 @@ class TwoWayDataBindinRiverpodView2 extends StatelessWidget {
   Widget build(BuildContext context) {
     log('-------------------------------- build');
 
-    final consumerCampo1 = Consumer(
+    final _twoWayDataBindingRiverpodProvider =
+        twoWayDataBindingRiverpodProvider(dataGeneratorService);
+
+    final consumerEditCampo1 = Consumer(
       builder: ((context, ref, child) {
         log('------------------ consumerCampo1');
 
-        String campo1 = ref.watch(twoWayDataBindingRiverpodProvider).campo1;
-        final notifier = ref.read(twoWayDataBindingRiverpodProvider.notifier);
+        String campo1 = ref.watch(_twoWayDataBindingRiverpodProvider).campo1;
+        final notifier = ref.read(_twoWayDataBindingRiverpodProvider.notifier);
 
         TextEditingController controllerCampo1 =
             TextEditingController(text: campo1);
@@ -34,11 +41,11 @@ class TwoWayDataBindinRiverpodView2 extends StatelessWidget {
       }),
     );
 
-    final consumerCampo2 = Consumer(
+    final consumerEditCampo2 = Consumer(
       builder: ((context, ref, _) {
         log('------------------ consumerCampo2');
-        String campo2 = ref.watch(twoWayDataBindingRiverpodProvider).campo2;
-        final notifier = ref.read(twoWayDataBindingRiverpodProvider.notifier);
+        String campo2 = ref.watch(_twoWayDataBindingRiverpodProvider).campo2;
+        final notifier = ref.read(_twoWayDataBindingRiverpodProvider.notifier);
 
         TextEditingController controllerCampo2 =
             TextEditingController(text: campo2);
@@ -54,7 +61,7 @@ class TwoWayDataBindinRiverpodView2 extends StatelessWidget {
       builder: ((context, ref, _) {
         log('------------------ consumerTextCampo1');
         return Text(
-            'Campo1: ${ref.watch(twoWayDataBindingRiverpodProvider).campo1}');
+            'Campo1: ${ref.watch(_twoWayDataBindingRiverpodProvider).campo1}');
       }),
     );
 
@@ -62,7 +69,7 @@ class TwoWayDataBindinRiverpodView2 extends StatelessWidget {
       builder: ((context, ref, _) {
         log('------------------ consumerTextCampo2');
         return Text(
-            'Campo2: ${ref.watch(twoWayDataBindingRiverpodProvider).campo2}');
+            'Campo2: ${ref.watch(_twoWayDataBindingRiverpodProvider).campo2}');
       }),
     );
     // final state = ref.watch(twoWayDataBindingRiverpodProvider);
@@ -75,48 +82,73 @@ class TwoWayDataBindinRiverpodView2 extends StatelessWidget {
     //   log('--- listenerCampo1 - prev $prev | next $next');
     // });
 
+    final consumerTimerFromCompleter = Consumer(
+      builder: ((context, ref, _) {
+        log('------------------ timerFromCompleter');
+        return Text(
+            'timerFromCompleter: ${ref.watch(_twoWayDataBindingRiverpodProvider).timerFromCompleter}');
+      }),
+    );
+
+    final consumerTimerFromPeriodic = Consumer(
+      builder: ((context, ref, _) {
+        log('------------------ consumerTimerFromPeriodic');
+        return Text(
+            'consumerTimerFromPeriodic: ${ref.watch(_twoWayDataBindingRiverpodProvider).timerFromPeriodc}');
+      }),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('TwoWDB2'),
       ),
       body: buildBody(
-        consumerCampo1: consumerCampo1,
-        consumerCampo2: consumerCampo2,
+        consumerEditCampo1: consumerEditCampo1,
+        consumerEditCampo2: consumerEditCampo2,
         consumerTextCampo1: consumerTextCampo1,
         consumerTextCampo2: consumerTextCampo2,
+        consumerTimerFromCompleter: consumerTimerFromCompleter,
+        consumerTimerFromPeriodic: consumerTimerFromPeriodic,
       ),
     );
   }
 
   buildBody({
-    required Widget consumerCampo1,
-    required Widget consumerCampo2,
+    required Widget consumerEditCampo1,
+    required Widget consumerEditCampo2,
     required Widget consumerTextCampo1,
     required Widget consumerTextCampo2,
+    required Widget consumerTimerFromCompleter,
+    required Widget consumerTimerFromPeriodic,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: consumerCampo1,
+          child: consumerEditCampo1,
         ),
         // ElevatedButton(
-        //     onPressed: () {
-        //       notifier.setCampo1(controllerCampo1.text);
-        //     },
-        //     child: const Text('campo1')),
+        //   onPressed: () {
+        //     notifier.setCampo1(controllerCampo1.text);
+        //   },
+        //   child: const Text('campo1'),
+        // ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: consumerCampo2,
+          child: consumerEditCampo2,
         ),
         // ElevatedButton(
         //     onPressed: () {
         //       notifier.setCampo2(controllerCampo2.text);
         //     },
         //     child: const Text('campo2')),
+        const Divider(thickness: 2),
         consumerTextCampo1,
         consumerTextCampo2,
+        const Divider(thickness: 2),
+        consumerTimerFromCompleter,
+        consumerTimerFromPeriodic,
       ],
     );
   }

@@ -12,14 +12,17 @@ class TwoWayDataBindinRiverpodView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final _twoWayDataBindingRiverpodProvider =
+        twoWayDataBindingRiverpodProvider(null);
+
     log('----------------------- FULL REFRESH');
-    final state = ref.watch(twoWayDataBindingRiverpodProvider);
-    final notifier = ref.read(twoWayDataBindingRiverpodProvider.notifier);
+    final state = ref.watch(_twoWayDataBindingRiverpodProvider);
+    final notifier = ref.read(_twoWayDataBindingRiverpodProvider.notifier);
 
-    final stateCampo1 = ref.watch(twoWayDataBindingRiverpodProvider).campo1;
-    final stateCampo2 = ref.watch(twoWayDataBindingRiverpodProvider).campo2;
+    final stateCampo1 = ref.watch(_twoWayDataBindingRiverpodProvider).campo1;
+    final stateCampo2 = ref.watch(_twoWayDataBindingRiverpodProvider).campo2;
 
-    ref.listen(twoWayDataBindingRiverpodProvider, (prev, next) {
+    ref.listen(_twoWayDataBindingRiverpodProvider, (prev, next) {
       log('--- listenerCampo1 - prev $prev | next $next');
     });
 
