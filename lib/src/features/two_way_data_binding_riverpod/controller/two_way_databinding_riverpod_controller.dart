@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:riverpod/riverpod.dart';
 import 'package:study_mad1/src/features/two_way_data_binding_riverpod/controller/two_way_databinding_riverpod_state.dart';
 
-import '../services/data_generator_services.dart';
+import '../../../shared/services/data_generator_services.dart';
 
 final twoWayDataBindingRiverpodProvider = StateNotifierProvider.autoDispose
     .family<TwoWayDataBindingRiverpodNotifier, TwoWayDataBindingRiverpodState,

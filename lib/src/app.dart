@@ -9,7 +9,7 @@ import 'features/sample_feature/sample_item_details_view.dart';
 import 'features/sample_feature/sample_item_list_view.dart';
 import 'features/settings/settings_controller.dart';
 import 'features/settings/settings_view.dart';
-import 'features/two_way_data_binding_riverpod/services/data_generator_services.dart';
+import 'shared/services/data_generator_services.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {

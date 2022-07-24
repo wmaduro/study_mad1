@@ -3,8 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:study_mad1/src/features/two_way_data_binding_riverpod/controller/two_way_databinding_riverpod_controller.dart';
-import 'package:study_mad1/src/features/two_way_data_binding_riverpod/controller/two_way_databinding_riverpod_state.dart';
-import 'package:study_mad1/src/features/two_way_data_binding_riverpod/services/data_generator_services.dart';
+import '../../../shared/services/data_generator_services.dart';
 
 class TwoWayDataBindinRiverpodView2 extends StatelessWidget {
   final DataGeneratorService dataGeneratorService;
